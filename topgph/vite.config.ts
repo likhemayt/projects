@@ -11,6 +11,20 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  esbuild: {
+    tsconfigRaw: {
+      compilerOptions: {
+        jsx: "react-jsx",
+        target: "ES2022",
+        module: "ESNext",
+        moduleResolution: "bundler",
+        skipLibCheck: true,
+        strictNullChecks: true,
+        noImplicitAny: true,
+        allowImportingTsExtensions: true,
+      }
+    }
+  },
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "src"),
