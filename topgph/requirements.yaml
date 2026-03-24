@@ -1,0 +1,28 @@
+packages:
+  "framer-motion": "For page transitions, scroll reveals, and micro-interactions"
+  "lucide-react": "For beautiful consistent iconography across services and features"
+  "react-hook-form": "For robust contact form state management"
+  "@hookform/resolvers": "For Zod validation integration"
+  "zod": "For contact form validation schema"
+
+images:
+  - path: "artifacts/topgph-website/public/images/logo.png"
+    description: "Premium minimalist geometric logo mark with letters TG, metallic gold on a transparent background, corporate tech construction style"
+    aspect_ratio: "1:1"
+  - path: "artifacts/topgph-website/public/images/hero-bg.png"
+    description: "Dark navy abstract background with glowing gold fiber optic lines, subtle circuit board patterns, and modern construction scaffolding silhouettes, cinematic lighting"
+    aspect_ratio: "16:9"
+  - path: "artifacts/topgph-website/public/images/about.png"
+    description: "Professional scene of modern technology infrastructure overlaying a city blueprint, dark navy tones with luminous gold accents, high tech feel"
+    aspect_ratio: "4:3"
+  - path: "artifacts/topgph-website/public/images/project-1.png"
+    description: "Smart city view at night with glowing CCTV nodes and fiber optic network light trails in striking gold and blue, cyber security aesthetic"
+    aspect_ratio: "16:9"
+  - path: "artifacts/topgph-website/public/images/project-2.png"
+    description: "Modern suburban street showing high-tech security camera poles and sleek solar panels, twilight lighting with gold highlights"
+    aspect_ratio: "16:9"
+
+notes:
+  - This is a single-page marketing website relying on smooth scrolling to #anchor sections.
+  - The contact form is fully validated with Zod but currently simulates a successful submission with a local state since there is no backend API specified.
+  - The styling uses a bespoke dark navy and gold palette true to a premium tech/construction corporate identity.
