@@ -11,7 +11,7 @@ Each project lives in its own folder and is independently deployed to Vercel.
 | Project                                                                            | Description                            | Tech          | Live URL                                          |
 | ---------------------------------------------------------------------------------- | -------------------------------------- | ------------- | ------------------------------------------------- |
 | [wedding-website](https://github.com/likhemayt/projects/tree/main/wedding-website) | Luxury wedding photography studio site | HTML, CSS, JS | [View Live](https://wedding-purposes.vercel.app/) |
-| [topgph-website](https://github.com/likhemayt/projects/tree/main/topgph)           | Luxury wedding photography studio site | HTML, CSS, JS | [View Live](https://topgph.vercel.app/)           |
+| [topgph-website](https://github.com/likhemayt/projects/tree/main/topgph)           | CCTV and Security site                 | HTML, CSS, JS | [View Live](https://topgph.vercel.app/)           |
 
 > More projects coming soon!
 
