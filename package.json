@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test:supabase": "node scripts/test-supabase.mjs"
+    "test:supabase": "node scripts/test-supabase.mjs",
+    "test:booking-api": "node scripts/test-booking-api.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",
@@ -15,6 +16,7 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@vercel/node": "^3.2.29",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.4",
