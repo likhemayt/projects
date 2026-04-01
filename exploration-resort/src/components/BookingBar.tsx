@@ -1,79 +1,76 @@
 import { FormEvent, useMemo, useState } from "react";
 import { useInView } from "../hooks/useInView";
-
-type FormState = {
-  checkIn: string;
-  checkOut: string;
-  guests: string;
-  email: string;
-};
-
-type FieldErrors = Partial<Record<keyof FormState, string>>;
-
-function todayISO() {
-  const d = new Date();
-  d.setHours(0, 0, 0, 0);
-  return d.toISOString().slice(0, 10);
-}
-
-function parseDate(s: string) {
-  const [y, m, d] = s.split("-").map(Number);
-  return new Date(y, m - 1, d);
-}
-
-function validate(values: FormState): FieldErrors {
-  const errors: FieldErrors = {};
-  const today = parseDate(todayISO());
-
-  if (!values.checkIn) errors.checkIn = "Choose an arrival date.";
-  if (!values.checkOut) errors.checkOut = "Choose a departure date.";
-  if (!values.email.trim()) errors.email = "Email is required.";
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim()))
-    errors.email = "Enter a valid email address.";
-
-  const guestsNum = Number(values.guests);
-  if (!values.guests || Number.isNaN(guestsNum) || guestsNum < 1)
-    errors.guests = "Select at least one guest.";
-  else if (guestsNum > 8) errors.guests = "For larger parties, contact us directly.";
-
-  if (values.checkIn) {
-    const ci = parseDate(values.checkIn);
-    if (ci < today) errors.checkIn = "Arrival cannot be in the past.";
-  }
-
-  if (values.checkIn && values.checkOut) {
-    const ci = parseDate(values.checkIn);
-    const co = parseDate(values.checkOut);
-    if (co <= ci) errors.checkOut = "Departure must be after arrival.";
-  }
-
-  return errors;
-}
+import {
+  todayISO,
+  validateBooking,
+  type BookingFormState,
+} from "../lib/bookingValidation";
 
 export function BookingBar() {
   const { ref, isInView } = useInView();
   const minDate = todayISO();
 
-  const [values, setValues] = useState<FormState>({
+  const [values, setValues] = useState<BookingFormState>({
     checkIn: "",
     checkOut: "",
     guests: "2",
     email: "",
   });
-  const [touched, setTouched] = useState<Partial<Record<keyof FormState, boolean>>>({});
+  const [touched, setTouched] = useState<Partial<Record<keyof BookingFormState, boolean>>>({});
   const [submitted, setSubmitted] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [emailFollowUpNote, setEmailFollowUpNote] = useState(false);
 
-  const errors = useMemo(() => validate(values), [values]);
-  const showErrors = (field: keyof FormState) =>
+  const errors = useMemo(() => validateBooking(values), [values]);
+  const showErrors = (field: keyof BookingFormState) =>
     (touched[field] || submitted) && errors[field];
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setSubmitted(true);
-    const next = validate(values);
+    const next = validateBooking(values);
     if (Object.keys(next).length > 0) return;
-    setSuccess(true);
+
+    setSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const r = await fetch("/api/booking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          checkIn: values.checkIn,
+          checkOut: values.checkOut,
+          guests: values.guests,
+          email: values.email.trim(),
+        }),
+      });
+
+      const data = (await r.json().catch(() => ({}))) as {
+        error?: string;
+        emailSent?: boolean;
+        emailSkipped?: boolean;
+        emailWarnings?: string[];
+      };
+
+      if (!r.ok) {
+        setSubmitError(
+          typeof data.error === "string" ? data.error : "Could not send your request."
+        );
+        return;
+      }
+
+      setEmailFollowUpNote(
+        Boolean(data.emailSkipped || (data.emailWarnings && data.emailWarnings.length > 0))
+      );
+      setSuccess(true);
+    } catch {
+      setSubmitError("Network error. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -114,6 +111,12 @@ export function BookingBar() {
               We&apos;ll email {values.email.trim()} with availability for your
               dates.
             </p>
+            {emailFollowUpNote && (
+              <p className="mt-4 font-sans text-sm text-ocean/65">
+                If you don&apos;t see a confirmation email within a few minutes, check spam
+                or reach us at the address in the footer.
+              </p>
+            )}
           </div>
         ) : (
           <form
@@ -131,7 +134,8 @@ export function BookingBar() {
                 value={values.checkIn}
                 onChange={(e) => setValues((v) => ({ ...v, checkIn: e.target.value }))}
                 onBlur={() => setTouched((t) => ({ ...t, checkIn: true }))}
-                className="rounded-lg border border-ocean/20 bg-white px-4 py-3 font-sans text-ocean outline-none ring-ocean/30 transition focus:ring-2"
+                disabled={submitting}
+                className="rounded-lg border border-ocean/20 bg-white px-4 py-3 font-sans text-ocean outline-none ring-ocean/30 transition focus:ring-2 disabled:opacity-60"
               />
               {showErrors("checkIn") && (
                 <span className="text-sm text-red-700">{errors.checkIn}</span>
@@ -148,7 +152,8 @@ export function BookingBar() {
                 value={values.checkOut}
                 onChange={(e) => setValues((v) => ({ ...v, checkOut: e.target.value }))}
                 onBlur={() => setTouched((t) => ({ ...t, checkOut: true }))}
-                className="rounded-lg border border-ocean/20 bg-white px-4 py-3 font-sans text-ocean outline-none ring-ocean/30 transition focus:ring-2"
+                disabled={submitting}
+                className="rounded-lg border border-ocean/20 bg-white px-4 py-3 font-sans text-ocean outline-none ring-ocean/30 transition focus:ring-2 disabled:opacity-60"
               />
               {showErrors("checkOut") && (
                 <span className="text-sm text-red-700">{errors.checkOut}</span>
@@ -163,7 +168,8 @@ export function BookingBar() {
                 value={values.guests}
                 onChange={(e) => setValues((v) => ({ ...v, guests: e.target.value }))}
                 onBlur={() => setTouched((t) => ({ ...t, guests: true }))}
-                className="rounded-lg border border-ocean/20 bg-white px-4 py-3 font-sans text-ocean outline-none ring-ocean/30 transition focus:ring-2"
+                disabled={submitting}
+                className="rounded-lg border border-ocean/20 bg-white px-4 py-3 font-sans text-ocean outline-none ring-ocean/30 transition focus:ring-2 disabled:opacity-60"
               >
                 {Array.from({ length: 8 }, (_, i) => i + 1).map((n) => (
                   <option key={n} value={String(n)}>
@@ -187,20 +193,29 @@ export function BookingBar() {
                 value={values.email}
                 onChange={(e) => setValues((v) => ({ ...v, email: e.target.value }))}
                 onBlur={() => setTouched((t) => ({ ...t, email: true }))}
-                className="rounded-lg border border-ocean/20 bg-white px-4 py-3 font-sans text-ocean outline-none ring-ocean/30 placeholder:text-ocean/35 transition focus:ring-2"
+                disabled={submitting}
+                className="rounded-lg border border-ocean/20 bg-white px-4 py-3 font-sans text-ocean outline-none ring-ocean/30 placeholder:text-ocean/35 transition focus:ring-2 disabled:opacity-60"
               />
               {showErrors("email") && (
                 <span className="text-sm text-red-700">{errors.email}</span>
               )}
             </label>
 
-            <div className="flex items-end lg:col-span-12">
-              <button
-                type="submit"
-                className="w-full rounded-full bg-ocean px-8 py-4 font-sans text-sm font-semibold uppercase tracking-[0.2em] text-sand transition hover:bg-ocean-deep md:w-auto"
-              >
-                Check availability
-              </button>
+            <div className="flex flex-col gap-3 lg:col-span-12">
+              {submitError && (
+                <p className="font-sans text-sm text-red-700" role="alert">
+                  {submitError}
+                </p>
+              )}
+              <div className="flex items-end">
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full rounded-full bg-ocean px-8 py-4 font-sans text-sm font-semibold uppercase tracking-[0.2em] text-sand transition hover:bg-ocean-deep disabled:cursor-not-allowed disabled:opacity-60 md:w-auto"
+                >
+                  {submitting ? "Sending…" : "Check availability"}
+                </button>
+              </div>
             </div>
           </form>
         )}

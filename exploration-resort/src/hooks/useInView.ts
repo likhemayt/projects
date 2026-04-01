@@ -1,12 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export function useInView() {
-  const ref = useRef<HTMLElement | null>(null);
+  const [node, setNode] = useState<HTMLElement | null>(null);
   const [isInView, setIsInView] = useState(false);
 
+  const ref = useCallback((el: HTMLElement | null) => {
+    setNode(el);
+  }, []);
+
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    if (!node) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -15,9 +18,9 @@ export function useInView() {
       { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
     );
 
-    observer.observe(el);
+    observer.observe(node);
     return () => observer.disconnect();
-  }, []);
+  }, [node]);
 
   return { ref, isInView };
 }
