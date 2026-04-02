@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+@keyframes dash-move {
+  to {
+    stroke-dashoffset: -120;
+  }
+}
+
+.path-dash-animate {
+  animation: dash-move 2.5s linear infinite;
+}
