@@ -1,6 +1,7 @@
 import { BookingBar } from "./components/BookingBar";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
+import { LeadsAdmin } from "./components/LeadsAdmin";
 import { RoomGrid } from "./components/RoomGrid";
 import { Testimonials } from "./components/Testimonials";
 
@@ -13,6 +14,7 @@ export default function App() {
         <BookingBar />
         <RoomGrid />
         <Testimonials />
+        <LeadsAdmin />
       </main>
       <footer className="border-t border-ocean/10 bg-ocean-deep px-5 py-16 text-sand md:px-8">
         <div className="mx-auto flex max-w-6xl flex-col gap-10 md:flex-row md:items-start md:justify-between">
@@ -29,7 +31,10 @@ export default function App() {
           </div>
         </div>
         <p className="mx-auto mt-14 max-w-6xl font-sans text-xs text-sand/45">
-          © {new Date().getFullYear()} Exploration. Imagery for demonstration.
+          © {new Date().getFullYear()} Exploration. Imagery for demonstration.{" "}
+          <a href="#leads" className="underline decoration-sand/30 underline-offset-2 hover:text-sand/80">
+            Staff leads
+          </a>
         </p>
       </footer>
     </div>

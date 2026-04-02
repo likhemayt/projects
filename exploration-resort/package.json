@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test:supabase": "node scripts/test-supabase.mjs",
-    "test:booking-api": "node scripts/test-booking-api.mjs"
+    "test:booking-api": "node scripts/test-booking-api.mjs",
+    "test:leads": "node scripts/test-leads.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",

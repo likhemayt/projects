@@ -14,4 +14,7 @@ alter table public.booking_requests enable row level security;
 
 -- No policies: only the service role (server) can read/write. Anon cannot access this table.
 
+create index if not exists booking_requests_created_at_idx
+  on public.booking_requests (created_at desc);
+
 comment on table public.booking_requests is 'Resort booking inquiries from the public site (written by Vercel API only).';
