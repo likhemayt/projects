@@ -52,13 +52,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const admin = createClient(url, serviceKey);
 
   const { data, error } = await admin
+    .schema("public")
     .from("booking_requests")
     .select("id, created_at, check_in, check_out, guests, email")
     .order("created_at", { ascending: false });
 
   if (error) {
     console.error("booking_requests select:", error);
-    json(res, 500, { error: "Could not load leads.", detail: error.message });
+    const e = error as any;
+    json(res, 500, {
+      error: "Could not load leads.",
+      detail: e?.message,
+      code: e?.code,
+      status: e?.status,
+      details: e?.details,
+      hint: e?.hint,
+    });
     return;
   }
 

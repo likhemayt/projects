@@ -101,6 +101,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const admin = createClient(url, serviceKey);
 
   const { data: row, error: dbError } = await admin
+    .schema("public")
     .from("booking_requests")
     .insert({
       check_in: values.checkIn,
@@ -113,7 +114,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   if (dbError) {
     console.error("booking_requests insert:", dbError);
-    json(res, 500, { error: "Could not save your request. Please try again." });
+    const e = dbError as any;
+    json(res, 500, {
+      error: "Could not save your request. Please try again.",
+      detail: e?.message,
+      code: e?.code,
+      status: e?.status,
+      details: e?.details,
+      hint: e?.hint,
+    });
     return;
   }
 
