@@ -16,7 +16,6 @@
 ```bash
 cd exploration-resort
 npm install
-npm run test:supabase
 ```
 
 Expect: anon auth OK; if `SUPABASE_SERVICE_ROLE_KEY` is set, a test insert/delete on `booking_requests` succeeds.
