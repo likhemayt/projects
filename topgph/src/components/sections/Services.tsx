@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { 
   Camera, 
   Mic, 
@@ -16,6 +16,9 @@ import {
   ArrowRight,
   X
 } from "lucide-react";
+import ReCAPTCHA from "react-google-recaptcha";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../../firebase";
 
 export function Services() {
   const services = [
@@ -34,22 +37,48 @@ export function Services() {
   ];
 
   const [activeService, setActiveService] = useState<{ icon: any, title: string, desc: string } | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
-  const handleClose = () => setActiveService(null);
+  const handleClose = () => {
+    setActiveService(null);
+    setRecaptchaToken(null);
+  };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    if (!recaptchaToken) {
+      alert("Please complete the reCAPTCHA verification.");
+      return;
+    }
+
+    setIsSubmitting(true);
     const formData = new FormData(e.currentTarget);
-    const company = formData.get('company');
-    const email = formData.get('email');
-    const phone = formData.get('phone');
-    const inquiry = formData.get('inquiry');
+    const name = formData.get('company') as string;
+    const email = formData.get('email') as string;
+    const phone = formData.get('phone') as string;
+    const message = formData.get('inquiry') as string;
     
-    const subject = encodeURIComponent(`Inquiry for ${activeService?.title}`);
-    const body = encodeURIComponent(`Company/Client: ${company}\nEmail: ${email}\nContact Number: ${phone}\n\nInquiry:\n${inquiry}`);
-    
-    window.location.href = `mailto:topgconstructionpros@gmail.com?subject=${subject}&body=${body}`;
-    handleClose();
+    try {
+      await addDoc(collection(db, "service_inquiries"), {
+        name,
+        email,
+        phone,
+        service: activeService?.title || "Unknown Service",
+        message: message || "No message provided",
+        createdAt: serverTimestamp(),
+      });
+      
+      alert("Inquiry sent successfully!");
+      handleClose();
+    } catch (error) {
+      console.error("Error submitting inquiry:", error);
+      alert("There was an error submitting your inquiry. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -193,12 +222,22 @@ export function Services() {
                     ></textarea>
                   </div>
                   
+                  <div className="flex justify-center mt-4">
+                    <ReCAPTCHA
+                      ref={recaptchaRef}
+                      sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"} // Fallback to test key if env is missing
+                      onChange={(token) => setRecaptchaToken(token)}
+                      theme="dark"
+                    />
+                  </div>
+
                   <button 
                     type="submit"
-                    className="w-full sm:w-auto bg-white text-black font-semibold px-8 py-3 rounded-lg hover:bg-gray-200 transition-colors mt-4 shadow-lg shadow-white/5 flex items-center justify-center gap-2"
+                    disabled={isSubmitting}
+                    className="w-full sm:w-auto bg-white text-black font-semibold px-8 py-3 rounded-lg hover:bg-gray-200 transition-colors mt-4 shadow-lg shadow-white/5 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                   >
-                    Send Inquiry
-                    <ArrowRight className="w-4 h-4" />
+                    {isSubmitting ? "Sending..." : "Send Inquiry"}
+                    {!isSubmitting && <ArrowRight className="w-4 h-4" />}
                   </button>
                 </form>
               </div>

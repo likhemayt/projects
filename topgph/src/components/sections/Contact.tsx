@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Mail, MapPin, Phone, Send, CheckCircle2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import ReCAPTCHA from "react-google-recaptcha";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../../firebase";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -17,22 +20,39 @@ type FormData = z.infer<typeof formSchema>;
 export function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(formSchema)
   });
 
   const onSubmit = async (data: FormData) => {
+    if (!recaptchaToken) {
+      alert("Please complete the reCAPTCHA verification.");
+      return;
+    }
+
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    console.log("Form data:", data);
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    reset();
-    
-    // Reset success message after 5 seconds
-    setTimeout(() => setIsSubmitted(false), 5000);
+    try {
+      await addDoc(collection(db, "contact_messages"), {
+        ...data,
+        createdAt: serverTimestamp(),
+      });
+      
+      setIsSubmitted(true);
+      reset();
+      setRecaptchaToken(null);
+      recaptchaRef.current?.reset();
+      
+      // Reset success message after 5 seconds
+      setTimeout(() => setIsSubmitted(false), 5000);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("There was an error submitting your message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -171,6 +191,15 @@ export function Contact() {
                     placeholder="Tell us about your project..."
                   />
                   {errors.message && <p className="text-xs text-destructive">{errors.message.message}</p>}
+                </div>
+
+                <div className="flex justify-center">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"} // Fallback to test key if env is missing
+                    onChange={(token) => setRecaptchaToken(token)}
+                    theme="dark"
+                  />
                 </div>
 
                 <button 
