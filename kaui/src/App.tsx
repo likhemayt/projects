@@ -171,8 +171,8 @@ const MenuPage = () => {
                     key={cat}
                     onClick={() => setActiveCategory(cat)}
                     className={`whitespace-nowrap text-left px-4 py-3 text-xs uppercase tracking-widest font-bold transition-all ${activeCategory === cat
-                        ? "bg-roast-900 text-cream-100"
-                        : "bg-transparent text-roast-900/60 hover:bg-roast-900/5 hover:text-roast-900"
+                      ? "bg-roast-900 text-cream-100"
+                      : "bg-transparent text-roast-900/60 hover:bg-roast-900/5 hover:text-roast-900"
                       }`}
                   >
                     {cat}
@@ -660,8 +660,8 @@ export default function App() {
                         key={branch.id}
                         onClick={() => setActiveMapCenter(branch.coords)}
                         className={`p-5 bg-cream-200 border cursor-pointer transition-all ${activeMapCenter[0] === branch.coords[0] && activeMapCenter[1] === branch.coords[1]
-                            ? 'border-terracotta shadow-md scale-[1.02]'
-                            : 'border-roast-900/10 hover:border-terracotta/50'
+                          ? 'border-terracotta shadow-md scale-[1.02]'
+                          : 'border-roast-900/10 hover:border-terracotta/50'
                           }`}
                       >
                         <h3 className="font-serif text-lg text-roast-900 mb-2 flex items-center justify-between">
@@ -750,7 +750,7 @@ export default function App() {
             <div className="flex gap-6">
               <a href="#" className="hover:text-cream-100 transition-colors">Privacy</a>
               <a href="#" className="hover:text-cream-100 transition-colors">Terms</a>
-              <span>Designed by <a href="https://michael-mabunga-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer" className="hover:text-cream-100 transition-colors">Likhemayt</a></span>
+              <span>Developed by <a href="https://michael-mabunga-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer" className="hover:text-cream-100 transition-colors">Likhemayt</a></span>
             </div>
           </div>
         </div>
