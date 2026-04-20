@@ -16,14 +16,20 @@ export function Hero() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background Image with Overlay and Animated Gradient */}
+      {/* Background Video with Overlay and Animated Gradient */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background/90 to-primary/10 animate-gradient-bg mix-blend-overlay z-10" />
-        <img
-          src="/images/hero-bg.png"
-          alt="Technology Background"
+        {/* TODO: Replace with actual WordPress-hosted video URL (e.g. https://topgph.com/wp-content/uploads/.../hero-bg.mp4) */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="https://topgph.com/wp-content/uploads/2025/07/topg-img-2.webp"
           className="w-full h-full object-cover scale-105 opacity-80"
-        />
+        >
+          <source src="" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-background/80 bg-gradient-to-t from-background via-background/60 to-transparent mix-blend-multiply z-10" />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent z-10" />
       </div>

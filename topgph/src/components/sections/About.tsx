@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle2, Shield, Cpu, Network, Eye } from "lucide-react";
+import { Shield, Cpu, Network, Eye } from "lucide-react";
 import { InfoTooltip } from "@/components/ui/info-tooltip";
 
 export function About() {
@@ -52,7 +52,7 @@ export function About() {
           >
             <div className="aspect-[4/3] rounded-3xl overflow-hidden border border-border relative z-10 shadow-2xl">
               <img
-                src="/images/about.png"
+                src="https://topgph.com/wp-content/uploads/2025/07/topg-img-2.webp"
                 alt="About TOP-G Tech"
                 className="w-full h-full object-cover"
               />

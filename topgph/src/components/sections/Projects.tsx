@@ -70,6 +70,7 @@ export function Projects() {
               className="group rounded-3xl overflow-hidden glass-panel hover:-translate-y-2 hover:border-primary/50 hover:shadow-primary/10 transition-all duration-500 shadow-xl"
             >
               <div className="relative aspect-[16/9] overflow-hidden">
+                {/* TODO: Upload real project photos (project-1.png, project-2.png) to WordPress media and swap the src to the WP URL */}
                 <img
                   src={`/images/${project.image}`}
                   alt={project.title}

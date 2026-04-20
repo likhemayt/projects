@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { Calendar, ArrowRight } from "lucide-react";
 import type { WPPost } from "@/lib/wordpress";
