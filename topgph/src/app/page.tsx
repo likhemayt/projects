@@ -8,10 +8,10 @@ import { Partners } from "@/components/sections/Partners";
 import { News } from "@/components/sections/News";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/layout/Footer";
-import { getPosts } from "@/lib/wordpress";
+import { getPosts, WPPost } from "@/lib/wordpress";
 
 export default async function HomePage() {
-  let posts = [];
+  let posts: WPPost[] = [];
   let errorMsg = null;
   try {
     posts = await getPosts(3);
