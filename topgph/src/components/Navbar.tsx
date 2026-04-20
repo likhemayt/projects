@@ -48,7 +48,7 @@ export function Navbar() {
             onClick={() => scrollTo("#home")}
           >
             <Image
-              src="/images/logo.png"
+              src="https://topgph.com/wp-content/uploads/2025/07/topg-logo-img-v3.png"
               alt="TOP-G Tech Logo"
               width={40}
               height={40}
