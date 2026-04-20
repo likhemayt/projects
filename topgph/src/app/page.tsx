@@ -12,10 +12,12 @@ import { getPosts } from "@/lib/wordpress";
 
 export default async function HomePage() {
   let posts = [];
+  let errorMsg = null;
   try {
     posts = await getPosts(3);
   } catch (error) {
     console.error("Failed to fetch WordPress posts:", error);
+    errorMsg = error instanceof Error ? error.message : "Unknown error occurred";
   }
 
   return (
@@ -29,7 +31,16 @@ export default async function HomePage() {
         <About />
         <Projects />
         <Partners />
-        <News posts={posts} />
+        
+        {errorMsg ? (
+          <section className="py-24 text-center">
+            <h2 className="text-destructive font-bold text-2xl">Vercel Build Error:</h2>
+            <p className="text-gray-400 mt-4">{errorMsg}</p>
+          </section>
+        ) : (
+          <News posts={posts} />
+        )}
+        
         <Contact />
       </main>
 
