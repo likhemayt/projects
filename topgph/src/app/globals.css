@@ -1,0 +1,226 @@
+@import "tailwindcss";
+
+/* ============================================================
+   TOP G Tech & Construction — Blue & White Design System
+   ============================================================ */
+
+@theme {
+  /* ── Core Blue Palette ── */
+  --color-primary: hsl(215, 90%, 55%);
+  --color-primary-foreground: hsl(0, 0%, 100%);
+  --color-secondary: hsl(215, 85%, 45%);
+  --color-accent: hsl(200, 100%, 70%);
+
+  /* ── Dark Foundation ── */
+  --color-background: hsl(220, 30%, 6%);
+  --color-foreground: hsl(0, 0%, 95%);
+  --color-surface: hsl(220, 20%, 10%);
+  --color-surface-hover: hsl(220, 20%, 14%);
+  --color-border: hsl(220, 15%, 16%);
+  --color-muted: hsl(220, 10%, 40%);
+  --color-destructive: hsl(0, 80%, 55%);
+
+  /* ── Typography ── */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Outfit", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* ── Animations ── */
+  --animate-scroll: scroll 40s linear infinite;
+  --animate-scroll-reverse: scroll-reverse 40s linear infinite;
+  --animate-gradient-bg: gradient-shift 8s ease infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+}
+
+/* ── Keyframes ── */
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes scroll-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px hsl(215 90% 55% / 0.3), 0 0 20px hsl(215 90% 55% / 0.1); }
+  50% { box-shadow: 0 0 15px hsl(215 90% 55% / 0.5), 0 0 40px hsl(215 90% 55% / 0.2); }
+}
+
+/* ============================================================
+   Base Styles
+   ============================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: hsl(215 90% 55% / 0.3);
+  color: var(--color-primary);
+}
+
+/* ============================================================
+   Utility Classes
+   ============================================================ */
+
+/* ── Glass Panel ── */
+.glass-panel {
+  background: hsl(220 20% 10% / 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid hsl(220 15% 20% / 0.5);
+}
+
+/* ── Blue Glow ── */
+.blue-glow {
+  box-shadow:
+    0 0 15px hsl(215 90% 55% / 0.25),
+    0 0 45px hsl(215 90% 55% / 0.1);
+  transition: box-shadow 0.3s ease;
+}
+.blue-glow:hover {
+  box-shadow:
+    0 0 20px hsl(215 90% 55% / 0.4),
+    0 0 60px hsl(215 90% 55% / 0.15);
+}
+
+/* ── Text Gradient ── */
+.text-gradient {
+  background: linear-gradient(135deg, hsl(215, 90%, 55%), hsl(200, 100%, 70%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Section Headings ── */
+.heading-divider {
+  position: relative;
+  padding-bottom: 1rem;
+}
+.heading-divider::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, hsl(215, 90%, 55%), hsl(200, 100%, 70%));
+}
+.heading-divider-center {
+  position: relative;
+  padding-bottom: 1rem;
+}
+.heading-divider-center::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, hsl(215, 90%, 55%), hsl(200, 100%, 70%));
+}
+
+/* ── Data Pill ── */
+.data-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background: hsl(220 20% 10% / 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid hsl(215 90% 55% / 0.2);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: hsl(200, 100%, 70%);
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+.data-pill:hover {
+  border-color: hsl(215 90% 55% / 0.5);
+  background: hsl(215 90% 55% / 0.1);
+}
+.data-pill .data-pill-icon {
+  color: var(--color-primary);
+}
+
+/* ── Custom Scrollbar ── */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: hsl(220 15% 20%);
+  border-radius: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: hsl(215 90% 55% / 0.5);
+}
+
+/* ── Tooltip Styles ── */
+.info-tooltip-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: hsl(215 90% 55% / 0.15);
+  color: var(--color-primary);
+  font-size: 0.625rem;
+  font-weight: 700;
+  cursor: help;
+  vertical-align: super;
+  margin-left: 0.25rem;
+  transition: all 0.2s ease;
+}
+.info-tooltip-trigger:hover {
+  background: hsl(215 90% 55% / 0.3);
+}
+
+/* ── Scroll Animation for Marquee ── */
+.animate-scroll {
+  animation: scroll 40s linear infinite;
+}
+.animate-scroll-reverse {
+  animation: scroll-reverse 40s linear infinite;
+}
+.animate-scroll:hover,
+.animate-scroll-reverse:hover {
+  animation-play-state: paused;
+}
+
+/* ── Gradient Background Animation ── */
+.animate-gradient-bg {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
