@@ -5,10 +5,19 @@ import { Services } from "@/components/sections/Services";
 import { About } from "@/components/sections/About";
 import { Projects } from "@/components/sections/Projects";
 import { Partners } from "@/components/sections/Partners";
+import { News } from "@/components/sections/News";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/layout/Footer";
+import { getPosts } from "@/lib/wordpress";
 
-export default function HomePage() {
+export default async function HomePage() {
+  let posts = [];
+  try {
+    posts = await getPosts(3);
+  } catch (error) {
+    console.error("Failed to fetch WordPress posts:", error);
+  }
+
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 selection:text-primary">
       <Navbar />
@@ -20,6 +29,7 @@ export default function HomePage() {
         <About />
         <Projects />
         <Partners />
+        <News posts={posts} />
         <Contact />
       </main>
 
