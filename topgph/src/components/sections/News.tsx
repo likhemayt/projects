@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Calendar, ArrowRight } from "lucide-react";
 import type { WPPost } from "@/lib/wordpress";
 
@@ -32,11 +31,10 @@ export function News({ posts }: NewsProps) {
             >
               <div className="relative h-48 w-full overflow-hidden bg-surface">
                 {post.featuredImage ? (
-                  <Image
+                  <img
                     src={post.featuredImage.node.sourceUrl}
                     alt={post.featuredImage.node.altText || post.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-surface to-background flex items-center justify-center">

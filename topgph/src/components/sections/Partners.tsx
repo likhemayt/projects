@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { Eye } from "lucide-react";
-import Image from "next/image";
 
 const WP_UPLOADS = "https://topgph.com/wp-content/uploads/2025/07";
 
@@ -63,7 +62,7 @@ export function Partners() {
               className="flex items-center gap-3 opacity-60 hover:opacity-100 transition-all duration-300 text-white hover:text-primary cursor-default whitespace-nowrap"
             >
               <div className="w-12 h-12 rounded-xl bg-white/90 border border-border flex items-center justify-center shrink-0 overflow-hidden p-1">
-                <Image
+                <img
                   src={client.logo}
                   alt={client.name}
                   width={40}
@@ -102,7 +101,7 @@ export function Partners() {
               className="flex items-center gap-3 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 text-white hover:text-primary cursor-default whitespace-nowrap relative"
             >
               {partner.logo ? (
-                <Image
+                <img
                   src={partner.logo}
                   alt={partner.name}
                   width={160}

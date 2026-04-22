@@ -3,7 +3,26 @@
     "allow": [
       "Bash(npx tsc *)",
       "Bash(npx next *)",
-      "WebFetch(domain:topgph.com)"
+      "WebFetch(domain:topgph.com)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(grep -oE 'class=\"[^\"]{20,80}\"')",
+      "Bash(curl -s \"http://localhost:3000/_next/static/css/app/layout.css?v=1776864076475\")",
+      "Bash(grep -oE '\\\\.\\(max-w-7xl|px-4|flex|glass-panel|text-gradient\\)[^{]*\\\\{[^}]{0,80}')",
+      "Bash(curl -s http://localhost:3000/ -w \"\\\\n---\\\\nHTTP %{http_code}\\\\n\")",
+      "Read(//tmp/**)",
+      "Bash(curl -s -o /dev/null -w \"port 3000: HTTP %{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(curl -s -o /dev/null -w \"port 3001: HTTP %{http_code}\\\\n\" http://localhost:3001/)",
+      "PowerShell(Get-CimInstance Win32_Process -Filter \"ProcessId = 5972\")",
+      "Bash(curl -s http://localhost:3001/)",
+      "Bash(curl -s http://localhost:3000/ -o /tmp/home.html)",
+      "Bash(curl -s http://localhost:3000/_next/static/css/app/layout.css)",
+      "Bash(curl -sI \"https://topgph.com/wp-content/uploads/2025/07/Hanwha.webp\")",
+      "Bash(curl -sI \"https://topgph.com/wp-content/uploads/2025/07/honeywell.webp\")",
+      "Bash(awk '/\\\\.max-w-7xl/,/^  \\\\}/' /tmp/layout.css)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git checkout *)"
     ]
   }
 }
