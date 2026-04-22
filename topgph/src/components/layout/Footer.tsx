@@ -1,7 +1,6 @@
 "use client";
 
 import { Mail, Facebook, Linkedin } from "lucide-react";
-import Image from "next/image";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -20,7 +19,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="space-y-6 lg:col-span-1">
             <div className="flex items-center gap-3">
-              <Image
+              <img
                 src="https://topgph.com/wp-content/uploads/2025/07/topg-logo-img-v3.webp"
                 alt="TOP-G Tech Logo"
                 width={40}

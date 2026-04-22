@@ -6,13 +6,13 @@
  *
  * Setup on WordPress (Hostinger):
  *   1. Install & activate the "WPGraphQL" plugin (https://www.wpgraphql.com/)
- *   2. Install & activate "Contact Form 7" or "WPForms" for form handling
+ *   2. Install & activate "Contact Form 7" for form handling
  *   3. Optionally install "WPGraphQL for ACF" if using Advanced Custom Fields
- *   4. Set NEXT_PUBLIC_WORDPRESS_GRAPHQL_URL in .env.local
+ *   4. Set PUBLIC_WORDPRESS_GRAPHQL_URL in .env.local
  */
 
 const GRAPHQL_URL =
-  process.env.NEXT_PUBLIC_WORDPRESS_GRAPHQL_URL || "https://topgph.com/graphql";
+  import.meta.env.PUBLIC_WORDPRESS_GRAPHQL_URL || "https://topgph.com/graphql";
 
 // ─── Generic Fetch ───────────────────────────────────────────
 
@@ -26,7 +26,6 @@ async function fetchGraphQL<T = unknown>(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ query, variables }),
-    next: { revalidate: 60 }, // ISR: revalidate every 60 seconds
   });
 
   if (!res.ok) {
@@ -108,13 +107,6 @@ export async function getPostBySlug(slug: string) {
             slug
           }
         }
-        seo {
-          title
-          metaDesc
-          opengraphImage {
-            sourceUrl
-          }
-        }
       }
     }
   `;
@@ -172,10 +164,10 @@ export async function getMediaItems(first = 20) {
   return data.mediaItems.nodes;
 }
 
-// ─── REST API Fallback for Form Submission ───────────────────
-// Contact Form 7 REST API endpoint (no GraphQL mutation needed)
+// ─── REST API for Form Submission ────────────────────────────
+// Contact Form 7 REST API endpoint
 
-const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL || "https://topgph.com";
+const WP_URL = import.meta.env.PUBLIC_WORDPRESS_URL || "https://topgph.com";
 
 export async function submitContactForm(formData: {
   name: string;
@@ -183,7 +175,6 @@ export async function submitContactForm(formData: {
   subject: string;
   message: string;
 }) {
-  // This uses the Contact Form 7 REST API.
   // Replace FORM_ID with your actual CF7 form ID after setup.
   const FORM_ID = "contact-form"; // placeholder
 
@@ -215,7 +206,6 @@ export async function submitServiceInquiry(formData: {
   service: string;
   message: string;
 }) {
-  // Same pattern as contact form — uses CF7 REST API
   const FORM_ID = "service-inquiry"; // placeholder
 
   const body = new FormData();
@@ -264,13 +254,6 @@ export interface WPPost {
       name: string;
       slug: string;
     }[];
-  };
-  seo?: {
-    title: string;
-    metaDesc: string;
-    opengraphImage?: {
-      sourceUrl: string;
-    };
   };
 }
 

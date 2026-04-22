@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { Eye } from "lucide-react";
-import Image from "next/image";
 
 const WP_UPLOADS = "https://topgph.com/wp-content/uploads/2025/07";
 
@@ -63,7 +62,7 @@ export function Partners() {
               className="flex items-center gap-3 opacity-60 hover:opacity-100 transition-all duration-300 text-white hover:text-primary cursor-default whitespace-nowrap"
             >
               <div className="w-12 h-12 rounded-xl bg-white/90 border border-border flex items-center justify-center shrink-0 overflow-hidden p-1">
-                <Image
+                <img
                   src={client.logo}
                   alt={client.name}
                   width={40}
@@ -102,19 +101,21 @@ export function Partners() {
               className="flex items-center gap-3 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 text-white hover:text-primary cursor-default whitespace-nowrap relative"
             >
               {partner.logo ? (
-                <Image
+                <img
                   src={partner.logo}
                   alt={partner.name}
-                  width={120}
-                  height={40}
-                  className="h-10 w-auto object-contain"
+                  width={160}
+                  height={48}
+                  className="h-12 w-auto object-contain"
                 />
-              ) : partner.icon ? (
-                <partner.icon className="w-10 h-10" />
-              ) : null}
-              <span className="font-display font-bold text-2xl tracking-tight">
-                {partner.name}
-              </span>
+              ) : (
+                <>
+                  {partner.icon && <partner.icon className="w-10 h-10" />}
+                  <span className="font-display font-bold text-2xl tracking-tight">
+                    {partner.name}
+                  </span>
+                </>
+              )}
               {partner.badge && (
                 <span className="absolute -top-2 -right-4 text-[10px] font-bold bg-primary/20 text-primary px-1.5 py-0.5 rounded-full border border-primary/30">
                   {partner.badge}

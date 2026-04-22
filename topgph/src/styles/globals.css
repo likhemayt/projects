@@ -87,7 +87,6 @@ body {
    Utility Classes
    ============================================================ */
 
-/* ── Glass Panel ── */
 .glass-panel {
   background: hsl(220 20% 10% / 0.7);
   backdrop-filter: blur(16px);
@@ -95,7 +94,6 @@ body {
   border: 1px solid hsl(220 15% 20% / 0.5);
 }
 
-/* ── Blue Glow ── */
 .blue-glow {
   box-shadow:
     0 0 15px hsl(215 90% 55% / 0.25),
@@ -108,7 +106,6 @@ body {
     0 0 60px hsl(215 90% 55% / 0.15);
 }
 
-/* ── Text Gradient ── */
 .text-gradient {
   background: linear-gradient(135deg, hsl(215, 90%, 55%), hsl(200, 100%, 70%));
   -webkit-background-clip: text;
@@ -116,7 +113,6 @@ body {
   background-clip: text;
 }
 
-/* ── Section Headings ── */
 .heading-divider {
   position: relative;
   padding-bottom: 1rem;
@@ -147,7 +143,6 @@ body {
   background: linear-gradient(90deg, hsl(215, 90%, 55%), hsl(200, 100%, 70%));
 }
 
-/* ── Data Pill ── */
 .data-pill {
   display: inline-flex;
   align-items: center;
@@ -171,7 +166,6 @@ body {
   color: var(--color-primary);
 }
 
-/* ── Custom Scrollbar ── */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
 }
@@ -186,7 +180,6 @@ body {
   background: hsl(215 90% 55% / 0.5);
 }
 
-/* ── Tooltip Styles ── */
 .info-tooltip-trigger {
   display: inline-flex;
   align-items: center;
@@ -207,7 +200,6 @@ body {
   background: hsl(215 90% 55% / 0.3);
 }
 
-/* ── Scroll Animation for Marquee ── */
 .animate-scroll {
   animation: scroll 40s linear infinite;
 }
@@ -219,7 +211,6 @@ body {
   animation-play-state: paused;
 }
 
-/* ── Gradient Background Animation ── */
 .animate-gradient-bg {
   background-size: 200% 200%;
   animation: gradient-shift 8s ease infinite;
