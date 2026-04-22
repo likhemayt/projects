@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@source "../../src/**/*.{ts,tsx,js,jsx}";
+
 /* ============================================================
    TOP G Tech & Construction — Blue & White Design System
    ============================================================ */

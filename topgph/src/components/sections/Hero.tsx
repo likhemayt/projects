@@ -19,17 +19,28 @@ export function Hero() {
       {/* Background Video with Overlay and Animated Gradient */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background/90 to-primary/10 animate-gradient-bg mix-blend-overlay z-10" />
-        {/* TODO: Replace with actual WordPress-hosted video URL (e.g. https://topgph.com/wp-content/uploads/.../hero-bg.mp4) */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="https://topgph.com/wp-content/uploads/2025/07/topg-img-2.webp"
-          className="w-full h-full object-cover scale-105 opacity-80"
-        >
-          <source src="" type="video/mp4" />
-        </video>
+        {/* TODO: Replace HERO_VIDEO_URL with your WordPress-hosted mp4 (e.g. https://topgph.com/wp-content/uploads/.../hero-bg.mp4) */}
+        {(() => {
+          const HERO_VIDEO_URL = "";
+          return HERO_VIDEO_URL ? (
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster="https://topgph.com/wp-content/uploads/2025/07/topg-img-2.webp"
+              className="w-full h-full object-cover scale-105 opacity-80"
+            >
+              <source src={HERO_VIDEO_URL} type="video/mp4" />
+            </video>
+          ) : (
+            <img
+              src="https://topgph.com/wp-content/uploads/2025/07/topg-img-2.webp"
+              alt="Technology Background"
+              className="w-full h-full object-cover scale-105 opacity-80"
+            />
+          );
+        })()}
         <div className="absolute inset-0 bg-background/80 bg-gradient-to-t from-background via-background/60 to-transparent mix-blend-multiply z-10" />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent z-10" />
       </div>
