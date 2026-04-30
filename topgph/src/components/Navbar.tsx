@@ -46,13 +46,9 @@ export function Navbar() {
             className="flex items-center gap-3 cursor-pointer"
             onClick={() => scrollTo("#home")}
           >
-            <img
-              src="https://topgph.com/wp-content/uploads/2025/07/topg-logo-img-v3.png"
-              alt="TOP-G Tech Logo"
-              width={40}
-              height={40}
-              className="object-contain"
-            />
+            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center font-bold text-white text-xl shadow-lg blue-glow">
+              G
+            </div>
             <span className="font-display font-bold text-xl md:text-2xl tracking-wide text-white">
               TOP-G <span className="text-primary">Tech</span>
             </span>

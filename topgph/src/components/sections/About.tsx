@@ -55,6 +55,10 @@ export function About() {
                 src="https://topgph.com/wp-content/uploads/2025/07/topg-img-2.webp"
                 alt="About TOP-G Tech"
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200";
+                }}
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-background/80 via-transparent to-transparent" />
             </div>

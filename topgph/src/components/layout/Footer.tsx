@@ -19,13 +19,9 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="space-y-6 lg:col-span-1">
             <div className="flex items-center gap-3">
-              <img
-                src="https://topgph.com/wp-content/uploads/2025/07/topg-logo-img-v3.webp"
-                alt="TOP-G Tech Logo"
-                width={40}
-                height={40}
-                className="object-contain grayscale brightness-200"
-              />
+              <div className="w-10 h-10 bg-primary/20 border border-primary/30 rounded-lg flex items-center justify-center font-bold text-primary text-xl">
+                G
+              </div>
               <span className="font-display font-bold text-2xl text-white">
                 TOP-G <span className="text-primary">Tech</span>
               </span>

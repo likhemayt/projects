@@ -11,7 +11,7 @@ export function Projects() {
       specs: "15 Km Fiber Optic Distance | 120 Fixed Cameras | 30 PTZ Cameras | Local & Cloud Storage | Central Command Center | 3-Year AMC",
       client: "Municipality Admin",
       location: "Pampanga Area",
-      image: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&q=80&w=1200",
+      image: "/images/project-1.png",
       impact: "Optimizing public safety and traffic management across the entire municipality.",
       pills: [
         { icon: Camera, value: "120", label: "Fixed Cameras" },
@@ -26,7 +26,7 @@ export function Projects() {
       specs: "2km Fiber Optic Distance | Smart Node Integration | Real-time Analytics | High-definition Surveillance",
       client: "Barangay Captain",
       location: "Laguna Area",
-      image: "https://images.unsplash.com/photo-1541888946425-d81bb19480c5?auto=format&fit=crop&q=80&w=1200",
+      image: "/images/project-2.png",
       impact: "Enhancing barangay-level security with smart surveillance nodes and real-time monitoring.",
       pills: [
         { icon: Camera, value: "95", label: "IP Cameras" },

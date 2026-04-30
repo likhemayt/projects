@@ -12,7 +12,9 @@
  */
 
 const GRAPHQL_URL =
-  import.meta.env.PUBLIC_WORDPRESS_GRAPHQL_URL || "https://topgph.com/graphql";
+  (typeof import.meta.env !== "undefined" &&
+    import.meta.env.PUBLIC_WORDPRESS_GRAPHQL_URL) ||
+  "https://topgph.com/graphql";
 
 // ─── Generic Fetch ───────────────────────────────────────────
 
