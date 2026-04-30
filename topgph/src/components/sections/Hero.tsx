@@ -64,14 +64,14 @@ export function Hero() {
       </div>
 
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20">
-        <div className="max-w-3xl">
+        <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
           >
-            <span className="inline-block py-1 px-3 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold tracking-wider uppercase mb-6">
-              Premier Infrastructure &amp; Surveillance Leader
+            <span className="inline-block py-1.5 px-4 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-8 shadow-[0_0_20px_rgba(59,130,246,0.15)]">
+              Intelligent Infrastructure
             </span>
           </motion.div>
 
@@ -79,16 +79,16 @@ export function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white leading-tight mb-2"
+            className="text-6xl md:text-8xl lg:text-[7rem] font-display font-extrabold text-white leading-[1.1] mb-2 tracking-tight"
           >
-            TOP-G <span className="text-gradient">Tech</span>
+            TOP-G <span className="text-gradient-primary">Tech</span>
           </motion.h1>
 
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-3xl md:text-5xl font-display font-semibold text-gray-300 mb-6"
+            className="text-2xl md:text-5xl font-display font-medium text-gray-400 mb-8 tracking-wide"
           >
             &amp; CONSTRUCTION
           </motion.h2>
@@ -97,27 +97,27 @@ export function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="text-lg md:text-2xl text-gray-400 mb-10 max-w-2xl font-light"
+            className="text-xl md:text-2xl text-gray-500 mb-12 max-w-2xl font-light"
           >
-            Securing Tomorrow | Building Today
+            Securing Tomorrow. Building Today.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col sm:flex-row gap-6 justify-center w-full sm:w-auto"
           >
             <button
               onClick={() => scrollTo("#services")}
-              className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold bg-primary text-primary-foreground hover:bg-secondary hover:-translate-y-1 transition-all duration-300 blue-glow"
+              className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold bg-primary text-primary-foreground hover:bg-secondary hover:scale-105 transition-all duration-300 shadow-[0_0_30px_rgba(59,130,246,0.3)]"
             >
-              Our Services
+              Explore Services
               <ArrowRight className="w-5 h-5" />
             </button>
             <button
               onClick={() => scrollTo("#contact")}
-              className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold bg-surface border border-border text-white hover:bg-surface-hover hover:border-primary/50 hover:-translate-y-1 transition-all duration-300"
+              className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold bg-surface border border-border text-white hover:bg-surface-hover hover:border-primary/50 hover:scale-105 transition-all duration-300"
             >
               <Phone className="w-5 h-5" />
               Get a Quote
