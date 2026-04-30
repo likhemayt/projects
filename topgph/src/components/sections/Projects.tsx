@@ -11,7 +11,7 @@ export function Projects() {
       specs: "15 Km Fiber Optic Distance | 120 Fixed Cameras | 30 PTZ Cameras | Local & Cloud Storage | Central Command Center | 3-Year AMC",
       client: "Municipality Admin",
       location: "Pampanga Area",
-      image: "project-1.png",
+      image: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&q=80&w=1200",
       impact: "Optimizing public safety and traffic management across the entire municipality.",
       pills: [
         { icon: Camera, value: "120", label: "Fixed Cameras" },
@@ -26,7 +26,7 @@ export function Projects() {
       specs: "2km Fiber Optic Distance | Smart Node Integration | Real-time Analytics | High-definition Surveillance",
       client: "Barangay Captain",
       location: "Laguna Area",
-      image: "project-2.png",
+      image: "https://images.unsplash.com/photo-1541888946425-d81bb19480c5?auto=format&fit=crop&q=80&w=1200",
       impact: "Enhancing barangay-level security with smart surveillance nodes and real-time monitoring.",
       pills: [
         { icon: Camera, value: "95", label: "IP Cameras" },
@@ -72,9 +72,13 @@ export function Projects() {
               <div className="relative aspect-[16/9] overflow-hidden">
                 {/* TODO: Upload real project photos (project-1.png, project-2.png) to WordPress media and swap the src to the WP URL */}
                 <img
-                  src={`/images/${project.image}`}
+                  src={project.image}
                   alt={project.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out opacity-90 group-hover:opacity-100"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200";
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent" />
                 <div className="absolute top-4 right-4 glass-panel px-4 py-2 rounded-full flex items-center gap-2 border-primary/30">
