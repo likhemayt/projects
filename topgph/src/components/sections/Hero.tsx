@@ -16,33 +16,48 @@ export function Hero() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background Video with Overlay and Animated Gradient */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background/90 to-primary/10 animate-gradient-bg mix-blend-overlay z-10" />
-        {/* TODO: Replace HERO_VIDEO_URL with your WordPress-hosted mp4 (e.g. https://topgph.com/wp-content/uploads/.../hero-bg.mp4) */}
-        {(() => {
-          const HERO_VIDEO_URL = "";
-          return HERO_VIDEO_URL ? (
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              poster="https://topgph.com/wp-content/uploads/2025/07/topg-img-2.webp"
-              className="w-full h-full object-cover scale-105 opacity-80"
-            >
-              <source src={HERO_VIDEO_URL} type="video/mp4" />
-            </video>
-          ) : (
-            <img
-              src="https://topgph.com/wp-content/uploads/2025/07/topg-img-2.webp"
-              alt="Technology Background"
-              className="w-full h-full object-cover scale-105 opacity-80"
-            />
-          );
-        })()}
-        <div className="absolute inset-0 bg-background/80 bg-gradient-to-t from-background via-background/60 to-transparent mix-blend-multiply z-10" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent z-10" />
+      {/* Animated Background */}
+      <div className="absolute inset-0 z-0 bg-background overflow-hidden">
+        {/* Animated Glow Orbs */}
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-[20%] -left-[10%] w-[70%] h-[70%] rounded-full bg-primary/20 blur-[120px]"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.5, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          className="absolute top-[20%] -right-[10%] w-[60%] h-[60%] rounded-full bg-accent/10 blur-[100px]"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.1, 0.3, 0.1],
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute -bottom-[20%] left-[20%] w-[60%] h-[60%] rounded-full bg-primary/10 blur-[150px]"
+        />
+        
+        {/* Tech Grid */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+        
+        {/* Scanning Line Animation */}
+        <motion.div
+          animate={{ y: ["-100%", "200%"] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+          className="absolute inset-0 h-32 bg-gradient-to-b from-transparent via-primary/5 to-transparent blur-md"
+        />
+
+        {/* Readability Overlays */}
+        <div className="absolute inset-0 bg-background/60 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent z-10" />
       </div>
 
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20">
